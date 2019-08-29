@@ -5,11 +5,15 @@
 #include <stdio.h>
 #include "stack.h"
 
+void setStackToFreshValues(Stack *stk) {
+    stk->values = (int*) calloc(5, sizeof(int));
+    stk->array_size = 5;
+    stk->stack_size = 0;
+}
+
 Stack* create_stack() {
-    Stack *stackPtr = (Stack*) malloc(sizeof(Stack));
-    stackPtr->values = (int*) calloc(5, sizeof(int));
-    stackPtr->array_size = 5;
-    stackPtr->stack_size = 0;
+    Stack *stk = (Stack*) malloc(sizeof(Stack));
+    setStackToFreshValues(stk);
 }
 
 // Destroys the stack, and frees up its memory
@@ -21,6 +25,13 @@ void destroy_stack(Stack *stk) {
 // Adds the value val to the top of the stack
 void push(Stack *stk, int val) {
     int indexToPut = stk->stack_size;
+    if (indexToPut == stk->array_size) {
+        int *newArray = calloc(stk->array_size * 2, sizeof(int));
+        for (int i = 0; i < stk->array_size; ++i) {
+            newArray[i] = stk->values[i];
+        }
+        stk->array_size *= 2;
+    }
     stk->values[indexToPut] = val;
     stk->stack_size++;
 }
@@ -55,10 +66,7 @@ size_t stack_size(Stack *stk) {
 // Removes all of the items from the stack
 void clear_stack(Stack *stk) {
     free(stk->values);
-    stk->values = (int*) calloc(5, sizeof(int));
-    stk->array_size = 5;
-    stk->stack_size = 0;
-
+    setStackToFreshValues(stk);
 }
 
 // Outputs the items in the stack to the console window
