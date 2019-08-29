@@ -24,14 +24,23 @@ int main( int argc, char* argv[] )
     check = pop(stack);
     printf("Tres = %d\n", check);
 
+    printf("Stack size = %d\n", stack_size(stack));
+    print_stack(stack);
+
     //TODO: Clear stack is not working correctly
-   // clear_stack(stack);
+    clear_stack(stack);
+
+    printf("Stack size = %d\n", stack_size(stack));
+    print_stack(stack);
+
+    push(stack, 9);
+    push(stack, 11);
 
     printf("Stack size = %d\n", stack_size(stack));
     print_stack(stack);
 
     //TODO: Destroy stack is not working correctly
-    //destroy_stack(stack);
+    destroy_stack(stack);
 
     //Prints gibberish after destroying the stack
     //print_stack(stack);

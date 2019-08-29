@@ -30,6 +30,8 @@ void push(Stack *stk, int val) {
         for (int i = 0; i < stk->array_size; ++i) {
             newArray[i] = stk->values[i];
         }
+        free(stk->values);
+        stk->values = newArray;
         stk->array_size *= 2;
     }
     stk->values[indexToPut] = val;
